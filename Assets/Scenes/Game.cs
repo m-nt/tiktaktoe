@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Mirror;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -10,73 +11,77 @@ public enum PlayerType {
     S
 }
 
-public class Game : MonoBehaviour
+public class Game : NetworkBehaviour
 {
+    public static Game self;
     public int[] game_matrix = new int[9];
-    public Transform[] blocks = new Transform[9];
-    public PlayerType type = PlayerType.X;
-    public GameObject start_new_game_menu;
-    public GameObject loading_new_game_menu;
-    public GameObject game_result_menu;
-    public TextMeshProUGUI x_score_text, o_score_text;
+    public PlayerType turn = PlayerType.X;
     public int x_score, o_score;
-
-    // Start is called before the first frame update
-    void Start() {
-        Application.targetFrameRate = 20;
-        Reset_game_hard(true);
+    private void Awake() {
+        if (self == null) {
+            self = this;
+        }
+        if (!isServer) return;
     }
+    // Start is called before the first frame update
+    void OnEnable() {
+        Reset_game_hard(true);
+        if (isServer) Debug.LogError("Im Server");
+    }
+    public void Add_Player (NetworkConnectionToClient target, Player _player) {
+        if (NetworkServer.connections.Count > 2) {
+            target.Disconnect();
+            return;
+        }
+        Menu.self.Start_new_game();
+        if (NetworkServer.connections.Count == 1) {
+            _player.type = PlayerType.X;
+            Menu.self.Set_up_player(target, PlayerType.X);
+        } else if (NetworkServer.connections.Count == 2){
+            _player.type = PlayerType.O;
+            Menu.self.Set_up_player(target, PlayerType.O);
+        }
+        if (NetworkServer.connections.Count >= 2) Menu.self.Start_game_delay();
+    }
+
+    [ServerCallback]
     public void Reset_game_soft() {
         int i = 0;
         while (i < game_matrix.Length) {
             game_matrix[i] = -1;
             i++;
         }
-        foreach (Transform item in blocks) {
-            item.GetChild(0).gameObject.SetActive(false);
-            item.GetChild(1).gameObject.SetActive(false);
-        }
+        Menu.self.Reset_game_soft();
     }
+    [ServerCallback]
     public void Reset_game_hard(bool new_match) {
         if (new_match) {
             x_score = 0;
             o_score = 0;
         }
+        turn = PlayerType.X;
         Reset_game_soft();
-        game_result_menu.transform.GetChild(0).gameObject.SetActive(false);
-        game_result_menu.transform.GetChild(1).gameObject.SetActive(false);
-        game_result_menu.gameObject.SetActive(false);
-        start_new_game_menu.SetActive(true);
-        loading_new_game_menu.SetActive(false);
-    }
-    public void Start_new_game() {
-        loading_new_game_menu.SetActive(true);
-        StartCoroutine(Start_game_delay());
-    }
-    IEnumerator Start_game_delay() {
-        yield return new WaitForSeconds(2);
-        start_new_game_menu.SetActive(false);
-    }
-    public void Add_state(int index) {
-        blocks[index].GetChild((int)type).gameObject.SetActive(true);
-        game_matrix[index] = (int)type;
+        Menu.self.Reset_Game();
     }
 
     // Update is called once per frame
+    [ServerCallback]
     void Update() {
-        x_score_text.text = x_score.ToString();
-        o_score_text.text = o_score.ToString();
+        Menu.self.x_score_value = x_score.ToString();
+        Menu.self.o_score_value = o_score.ToString();
+        if (!isServer) return;
         int result = Check_game_state();
         if (result == -1) return;
         if (result == 1 || result == 0) WinResult(result);
     }
+    [ServerCallback]
     void WinResult(int result) {
         if (result == 1) o_score++;
         if (result == 0) x_score++;
         Reset_game_soft();
-        game_result_menu.SetActive(true);
-        game_result_menu.transform.GetChild(result).gameObject.SetActive(true);
+        Menu.self.WinResult(result);
     }
+    [ServerCallback]
     public int Check_game_state() {
         if (game_matrix[0] == 1 && game_matrix[1] == 1 && game_matrix[2] == 1) return 1;
         if (game_matrix[0] == 1 && game_matrix[4] == 1 && game_matrix[8] == 1) return 1;
