@@ -2,6 +2,7 @@ using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Mirror;
+using kcp2k;
 
 /*
 	Documentation: https://mirror-networking.gitbook.io/docs/components/network-manager
@@ -10,6 +11,8 @@ using Mirror;
 
 public class NetManagerTest : NetworkManager
 {
+    public string KCP_URI;
+    public bool is_client;
     // Overrides the base singleton so we don't
     // have to cast to this type everywhere.
     public static new NetManagerTest singleton => (NetManagerTest)NetworkManager.singleton;
@@ -20,6 +23,17 @@ public class NetManagerTest : NetworkManager
     /// </summary>
     public override void Awake()
     {
+        // if (Transport.active is PortTransport portTransport) {
+        //     portTransport.Port = 1010;
+        //     // portTransport.Port = WebSocketManager.self.match.port;
+        // }
+        // Debug.LogError(WebSocketManager.self.user.uuid);
+        // GetComponent<KcpTransport>().Port = WebSocketManager.self.match.port;
+        // try {
+        //     GetComponent<KcpTransport>().Port = WebSocketManager.self.match.port;
+        // } catch (System.Exception) {
+            
+        // }
         base.Awake();
     }
 
@@ -36,8 +50,12 @@ public class NetManagerTest : NetworkManager
     /// </summary>
     public override void Start()
     {
-        
-        base.Start();
+        if (is_client) {
+            Uri uri = new(KCP_URI+WebSocketManager.self.match.port.ToString());
+            StartClient(uri);
+        } else {
+            base.Start();
+        }
     }
 
     /// <summary>

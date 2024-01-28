@@ -1239,7 +1239,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &336770954
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1385,7 +1385,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &336924075
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1936,7 +1936,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 430671602}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6442dc8070ceb41f094e44de0bf87274, type: 3}
   m_Name: 
@@ -2018,6 +2018,8 @@ MonoBehaviour:
   evaluationMethod: 0
   evaluationInterval: 3
   timeInterpolationGui: 0
+  KCP_URI: 'kcp://localhost:'
+  is_client: 1
 --- !u!4 &430671606
 Transform:
   m_ObjectHideFlags: 0
@@ -3695,8 +3697,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -170.00003, y: -0.000052452}
-  m_SizeDelta: {x: 340, y: 61.596}
+  m_AnchoredPosition: {x: -0.000030518, y: -0.000052452}
+  m_SizeDelta: {x: 680, y: 61.596}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1068955389
 MonoBehaviour:
@@ -3737,7 +3739,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 0
+  m_Interactable: 1
   m_TargetGraphic: {fileID: 1068955390}
   m_OnClick:
     m_PersistentCalls:

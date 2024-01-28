@@ -5,25 +5,26 @@
 #1 DONE 0.0s
 
 #2 [internal] load build definition from Dockerfile
-#2 transferring dockerfile: 111B 0.0s done
+#2 transferring dockerfile: 98B 0.0s done
 #2 DONE 0.0s
 
 #3 [internal] load metadata for docker.io/library/ubuntu:bionic
-#3 DONE 2.3s
+#3 DONE 9.1s
 
 #4 [1/2] FROM docker.io/library/ubuntu:bionic@sha256:152dc042452c496007f07ca9127571cb9c29697f42acbfad72324b2bb2e43c98
 #4 CACHED
 
 #5 [internal] load build context
-#5 transferring context: 12.23kB 1.7s done
-#5 DONE 1.7s
+#5 transferring context: 25B
+#5 transferring context: 12.45kB 1.4s done
+#5 DONE 1.4s
 
 #6 [2/2] COPY ./build/ /
-#6 DONE 0.2s
+#6 DONE 0.8s
 
 #7 exporting to image
 #7 exporting layers
-#7 exporting layers 0.2s done
-#7 writing image sha256:cc11a32ce23fd36928dc156ee104e5e85542db01b187ccc701b13f929759c971 done
+#7 exporting layers 0.3s done
+#7 writing image sha256:211fc603e67523352b68adac230e220517420e3aa84d2a7adb59398ae0bbbbe9 done
 #7 naming to docker.io/library/tiktactoe done
-#7 DONE 0.2s
+#7 DONE 0.3s
