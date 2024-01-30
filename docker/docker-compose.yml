@@ -3,7 +3,7 @@ services:
   goblin:
     image: goblin
     container_name: goblin
-    user: "0:0"
+    user: "981:981"
     ports:
       - "8001:8000"
     networks:
