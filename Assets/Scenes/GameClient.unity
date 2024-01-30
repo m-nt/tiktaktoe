@@ -1994,7 +1994,7 @@ MonoBehaviour:
   offlineScene: 
   onlineScene: 
   transport: {fileID: 430671604}
-  networkAddress: localhost
+  networkAddress: http://atlasgames.org
   maxConnections: 100
   disconnectInactiveConnections: 0
   disconnectInactiveTimeout: 60
@@ -2018,7 +2018,7 @@ MonoBehaviour:
   evaluationMethod: 0
   evaluationInterval: 3
   timeInterpolationGui: 0
-  KCP_URI: 'kcp://localhost:'
+  KCP_URI: 'kcp://atlasgames.org:'
   is_client: 1
 --- !u!4 &430671606
 Transform:

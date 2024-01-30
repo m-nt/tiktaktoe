@@ -392,16 +392,14 @@ MonoBehaviour:
     name: mamad
     rank: 2
     companions: []
-  uri_address: ws://localhost:8000
+  uri_address: ws://atlasgames.org:8001
   button: {fileID: 990052321}
   match:
-    match_uid: 
+    muid: 
+    state: 
     port: 0
     opponents: []
   OnSocketReceiveMatch:
-    m_PersistentCalls:
-      m_Calls: []
-  OnSocketReceiveUser:
     m_PersistentCalls:
       m_Calls: []
 --- !u!1 &707484961
